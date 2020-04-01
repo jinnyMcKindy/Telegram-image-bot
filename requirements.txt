@@ -1,2 +1,5 @@
 asyncio
 aiohttp
+Pillow
+requests
+heroku.env
