@@ -30,7 +30,7 @@ def text_wrap(text, font, max_width):
             lines.append(line)    
     return lines
 
-def generate_poster(background, text, text_color='', font='Comic', url='', rabbit='', logo_pic=''):
+def generate_poster(background, text, text_color='', font='Comic.ttf', url='', rabbit='', logo_pic=''):
 	rgb = tuple(int(background[i:i+2], 16) for i in (0, 2, 4))
 	text_color_rgb = tuple(int(text_color[i:i+2], 16) for i in (0, 2, 4))
 
@@ -40,7 +40,7 @@ def generate_poster(background, text, text_color='', font='Comic', url='', rabbi
 
 	size = img_height - padding*2, img_height - padding*2
 
-	if(url):
+	if url:
 		response = requests.get(url)
 		print(response)
 		bird = Image.open(BytesIO(response.content)).convert("RGBA")
@@ -85,10 +85,10 @@ def generate_poster(background, text, text_color='', font='Comic', url='', rabbi
 	    draw.text((x, y), line, fill=text_color_rgb, font=font)
 	    y = y + line_height
 
-	byte_io = BytesIO()
-	img.save(byte_io, format='PNG')
-	byte_io = byte_io.getvalue()
-	return byte_io
-	#img.save('images/pil_text.png', optimize=True)
-
-
+	if rabbit:
+		img.save('images/pil_text.png', optimize=True)
+	else:
+		byte_io = BytesIO()
+		img.save(byte_io, format='PNG')
+		byte_io = byte_io.getvalue()
+		return byte_io
