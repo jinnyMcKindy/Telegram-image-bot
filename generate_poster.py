@@ -74,7 +74,7 @@ def generate_poster(background, text, text_color='', font='Comic.ttf', url='', r
 	draw = ImageDraw.Draw(img)
 
 	font = ImageFont.truetype("fonts/{!s}".format(font), size=30, encoding="unic")
-	lines = text_wrap(text, font, img_width - bird.size[0] - padding)
+	lines = text_wrap(text, font, img_width - bird.size[0] - padding*2)
 	line_heigth = font.getsize('hg')[1]
 
 	count = len(lines)
