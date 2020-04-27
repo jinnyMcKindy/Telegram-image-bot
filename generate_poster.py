@@ -34,11 +34,11 @@ def generate_poster(background, text, text_color='', font='Comic.ttf', url='', r
 	rgb = tuple(int(background[i:i+2], 16) for i in (0, 2, 4))
 	text_color_rgb = tuple(int(text_color[i:i+2], 16) for i in (0, 2, 4))
 
-	img_height = 250
+	img_heigth = 250
 	img_width = 500
 	padding = 10
 
-	size = img_height - padding*2, img_height - padding*2
+	size = img_heigth - padding*2, img_heigth - padding*2
 
 	if url:
 		response = requests.get(url)
@@ -47,23 +47,23 @@ def generate_poster(background, text, text_color='', font='Comic.ttf', url='', r
 
 	else: 
 		bird = Image.open("images/{!s}.png".format(rabbit), 'r').convert("RGBA")
-	width, height = bird.size 
+	width, heigth = bird.size 
 	min_widht = width
-	if height < width:
-		min_widht = height
+	if heigth < width:
+		min_widht = heigth
 
 	left = (width - min_widht)/2
-	top = (height - min_widht)/2
+	top = (heigth - min_widht)/2
 	right = (width + min_widht)/2
-	bottom = (height + min_widht)/2
+	bottom = (heigth + min_widht)/2
 
 	bird = bird.crop((left, top, right, bottom))
 	bird.thumbnail(size)
 
 	margin_left = img_width - bird.size[0] - padding
-	margin_top = img_height - bird.size[1] - padding
+	margin_top = img_heigth - bird.size[1] - padding
 
-	img = Image.new('RGBA', (img_width, img_height), color = rgb)
+	img = Image.new('RGBA', (img_width, img_heigth), color = rgb)
 
 	if logo_pic and logo_pic != '-':
 		logo = Image.open("logos/{!s}.thumbnail.png".format(logo_pic)).convert("RGBA")
@@ -74,8 +74,8 @@ def generate_poster(background, text, text_color='', font='Comic.ttf', url='', r
 	draw = ImageDraw.Draw(img)
 
 	font = ImageFont.truetype("fonts/{!s}".format(font), size=30, encoding="unic")
-	lines = text_wrap(text, font, img_width/2 - 30)
-	line_height = font.getsize('hg')[1]
+	lines = text_wrap(text, font, img_width - bird.size[0] - padding)
+	line_heigth = font.getsize('hg')[1]
 
 	count = len(lines)
 	x = 30
@@ -83,7 +83,7 @@ def generate_poster(background, text, text_color='', font='Comic.ttf', url='', r
 
 	for line in lines:
 	    draw.text((x, y), line, fill=text_color_rgb, font=font)
-	    y = y + line_height
+	    y = y + line_heigth
 
 	if rabbit:
 		img.save('images/pil_text.png', optimize=True)
