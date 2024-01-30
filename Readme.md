@@ -27,7 +27,7 @@ Will generate `images/pil_text.png`
 	url=""
 ```
 
-Rabbit is main pic saved in `images/`
+Rabbit is main pic saved to `images/`
 
-logo_pic is logo thumbnail in `logos/`
+logo_pic is logo thumbnail to `logos/`
 
